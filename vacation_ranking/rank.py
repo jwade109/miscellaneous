@@ -77,6 +77,16 @@ def main():
     df = pd.read_csv(sys.argv[1], keep_default_na=False)
     outfile = sys.argv[2]
     locs = list(df.Locations)
+
+    print(term.home + term.clear + term.move_y(term.height // 2 - 2))
+    print(term.center(f"Hello, {outfile}") + "\n")
+    print(term.center(f"Press {term.blink('[SPACE]')} to start"))
+
+    inp = None
+    while inp != ' ':
+        with term.cbreak(), term.hidden_cursor():
+            inp = term.inkey().lower()
+
     slocs = sorted(locs, key=cmp_to_key(get_preference))
     handle_results(slocs, outfile)
 
